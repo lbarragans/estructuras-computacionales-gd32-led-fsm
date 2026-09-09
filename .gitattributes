@@ -1,0 +1,39 @@
+# =============================================================================
+# GitHub Linguist - Estructuras Computacionales / GD32VW553
+#
+# REGLA GLOBAL:
+#   1. Todo lenguaje que forme parte REAL de una implementacion se muestra.
+#   2. Herramientas auxiliares no alteran los porcentajes.
+#   3. No se fuerza artificialmente un 100%.
+# =============================================================================
+
+# Lenguajes reales de las implementaciones
+*.c linguist-language=C
+*.h linguist-language=C
+*.S linguist-language=Assembly
+*.s linguist-language=Assembly
+
+# Herramientas auxiliares
+*.ps1 linguist-detectable=false
+*.bat linguist-detectable=false
+*.cmd linguist-detectable=false
+tools/** linguist-detectable=false
+
+# Sistema de construccion y configuracion
+CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
+CMakePresets.json linguist-detectable=false
+*.json linguist-detectable=false
+.vscode/** linguist-detectable=false
+
+# Documentacion
+*.md linguist-documentation=true
+Doc/** linguist-documentation=true
+
+# Linker / artefactos generados
+*.ld linguist-detectable=false
+*.lds linguist-detectable=false
+*.map linguist-generated=true
+*.lst linguist-generated=true
+*.hex linguist-generated=true
+*.bin linguist-generated=true
