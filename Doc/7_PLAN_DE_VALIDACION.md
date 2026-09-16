@@ -26,3 +26,14 @@ la queue, los eventos correctos para cada estado y ausencia de espera activa.
 
 Ninguna ruta se marca validada en hardware sin compilacion, programacion y
 medicion en la placa.
+
+## Validacion manual desde VS Code
+
+Abra `Terminal > Run Task` y ejecute, en este orden:
+
+1. `Build + Flash Original`;
+2. `Build + Flash Assembly`;
+3. `Build + Flash FreeRTOS`.
+
+En cada caso espere `Verified OK` y observe tres pulsos lentos, cinco rapidos
+y una pausa apagada de dos segundos.

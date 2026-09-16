@@ -1,5 +1,9 @@
 #include <stdint.h>
 
+#include "app_cfg.h"
+#include "gd32vw55x_platform.h"
+#include "wrapper_os.h"
+
 #include "gd32vw55x.h"
 #include "FreeRTOS.h"
 #include "queue.h"
@@ -129,6 +133,8 @@ static void fsm_controller_task(void *argument)
 
 int main(void)
 {
+    sys_os_init();
+    platform_init();
     led_init();
 
     event_queue = xQueueCreate(8U, sizeof(fsm_event_t));
@@ -137,19 +143,24 @@ int main(void)
         }
     }
 
-    (void)xTaskCreate(
+    BaseType_t producer_ok = xTaskCreate(
         event_producer_task, "EventProducer",
         configMINIMAL_STACK_SIZE, NULL,
         tskIDLE_PRIORITY + 1U, NULL
     );
 
-    (void)xTaskCreate(
+    BaseType_t controller_ok = xTaskCreate(
         fsm_controller_task, "FSM",
         configMINIMAL_STACK_SIZE, NULL,
         tskIDLE_PRIORITY + 2U, NULL
     );
 
-    vTaskStartScheduler();
+    if ((producer_ok != pdPASS) || (controller_ok != pdPASS)) {
+        for (;;) {
+        }
+    }
+
+    sys_os_start();
 
     for (;;) {
     }

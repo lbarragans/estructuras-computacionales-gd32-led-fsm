@@ -44,7 +44,7 @@ recargue la ventana de VS Code.
 
 - cierre otras sesiones de OpenOCD o GDB;
 - compruebe alimentacion y conexiones JTAG;
-- confirme interfaz CMSIS-DAP y velocidad de 100 kHz;
+- confirme interfaz CMSIS-DAP USB bulk y velocidad de 50 kHz;
 - desconecte y vuelva a conectar el depurador.
 
 ## Archivos que no deben publicarse

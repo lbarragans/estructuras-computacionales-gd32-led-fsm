@@ -48,5 +48,22 @@ nuevas quedan listas para integracion y validacion controlada.
 | Implementacion | Estado |
 |---|---|
 | Referencia C/SysTimer | funcional |
-| Ensamblador RISC-V puro | fuente lista; integracion y placa pendientes |
-| FreeRTOS puro | fuente lista; kernel/port e integracion pendientes |
+| Ensamblador RISC-V puro | compilable y programable desde tareas de VS Code |
+| FreeRTOS puro | compilable y programable desde tareas de VS Code y MSDK V1.0.3g |
+
+## Ejecutar las variantes desde VS Code
+
+1. Abra la carpeta completa del ejercicio en VS Code.
+2. Abra `Terminal > Run Task`.
+3. Para la referencia seleccione `Build + Flash Original`.
+4. Para Assembly seleccione `Build + Flash Assembly`.
+5. Para FreeRTOS seleccione `Build + Flash FreeRTOS`.
+6. Espere `Verified OK` y observe PC13.
+
+Las tareas ejecutan internamente CMake, el MSDK y OpenOCD; el estudiante no
+necesita escribir comandos en la consola.
+
+## Guía central de ejecución
+
+Consulte la [guía central GD32VW553](https://github.com/lbarragans/gd32vw553-vscode-cmake-guide)
+para configurar Windows, VS Code, JTAG, Assembly y FreeRTOS.
