@@ -1,97 +1,28 @@
 # 7. Plan de validacion
 
-## Patron funcional
+Las tres rutas deben producir 3 pulsos lentos, 5 rapidos y pausa de 2000 ms.
 
-Cada variante funcional debe producir:
+## Medidas por ciclo
 
-```text
-3 pulsos lentos
-500 ms ON
-500 ms OFF
+- duracion nominal: 6500 ms;
+- toggles: 16;
+- transiciones principales: 3;
+- ciclos completados: 1.
 
-5 pulsos rapidos
-150 ms ON
-150 ms OFF
+## Referencia
 
-pausa
-2000 ms OFF
-```
+Compilar con `build-debug`, observar los contadores globales y comprobar que
+`g_background_iterations` aumenta durante las esperas.
 
-## Duracion de ciclo
+## Ensamblador
 
-Valor nominal:
-
-```text
-6500 ms
-```
-
-La tolerancia real dependera del reloj, latencia de software y metodo de medida.
-
-## Contadores esperados por ciclo
-
-Para variantes equivalentes a la base:
-
-```text
-toggles de LED       = 16
-transiciones mayores = 3
-ciclos completados   = 1
-```
-
-## Pruebas estructurales
-
-### Recuperacion de estado invalido
-
-Cuando una variante tenga un estado `default`/invalido debe regresar de forma
-determinista a una condicion segura con LED apagado.
-
-### Wrap-around del reloj
-
-Las comparaciones temporales deben preferir:
-
-```c
-(uint32_t)(now - last) >= period
-```
-
-para tolerar el wrap-around natural de un contador unsigned.
-
-### No bloqueo
-
-En todas las variantes no bloqueantes debe existir una variable o tarea de
-fondo que avance durante las esperas.
-
-### Variante bloqueante
-
-Debe demostrar lo contrario: el trabajo de fondo no progresa mientras la CPU
-permanece en la espera activa.
-
-## Assembly
-
-Para la variante 07 observar:
-
-- `a0`: estado;
-- `a1`: pulsos completados;
-- `a2`: tiempo transcurrido;
-- retorno `a0`: 0 o 1.
+Integrar `main.S` sin C de aplicacion; verificar ISR de 1 ms, registros `s2-s4`,
+contadores globales, wrap-around unsigned y salida PC13.
 
 ## FreeRTOS
 
-Solo marcar validada despues de integrar y verificar:
+Integrar kernel, port, heap, tick y configuracion; verificar las dos tareas,
+la queue, los eventos correctos para cada estado y ausencia de espera activa.
 
-- kernel;
-- port RISC-V;
-- `FreeRTOSConfig.h`;
-- heap;
-- scheduler;
-- queue;
-- tick;
-- prioridades;
-- stack de tareas.
-
-## Estados de madurez
-
-- **Base actual**
-- **Fuente lista**
-- **Contraste educativo**
-- **Integracion pendiente**
-- **Validada por compilacion**
-- **Validada en placa**
+Ninguna ruta se marca validada en hardware sin compilacion, programacion y
+medicion en la placa.
